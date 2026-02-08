@@ -41,10 +41,11 @@ function lawandbeyond_customize_register( $wp_customize ) {
 	) );
 
 	$social_links = array(
-		'youtube'  => __( 'YouTube URL', 'lawandbeyond' ),
-		'twitter'  => __( 'Twitter/X URL', 'lawandbeyond' ),
-		'linkedin' => __( 'LinkedIn URL', 'lawandbeyond' ),
-		'facebook' => __( 'Facebook URL', 'lawandbeyond' ),
+		'youtube'   => __( 'YouTube URL', 'lawandbeyond' ),
+		'twitter'   => __( 'Twitter/X URL', 'lawandbeyond' ),
+		'linkedin'  => __( 'LinkedIn URL', 'lawandbeyond' ),
+		'facebook'  => __( 'Facebook URL', 'lawandbeyond' ),
+		'instagram' => __( 'Instagram URL', 'lawandbeyond' ),
 	);
 
 	foreach ( $social_links as $key => $label ) {

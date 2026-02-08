@@ -224,6 +224,70 @@
 	}
 
 	/* ========================================
+	   Sidebar Widget Live Search
+	   ======================================== */
+	$('.widget .search-form').each(function () {
+		var $form = $(this);
+		// Append live search container if not present
+		if (!$form.find('.live-search-results').length) {
+			$form.css('position', 'relative').append('<div class="live-search-results"></div>');
+		}
+		var $field = $form.find('.search-field');
+		var $results = $form.find('.live-search-results');
+		var timer = null;
+		var lastQ = '';
+
+		if ($field.length && typeof lawandbeyondAjax !== 'undefined') {
+			$field.on('input', function () {
+				var q = $(this).val().trim();
+				if (q.length < 2) {
+					$results.html('').removeClass('active');
+					lastQ = '';
+					return;
+				}
+				if (q === lastQ) return;
+				lastQ = q;
+				clearTimeout(timer);
+				timer = setTimeout(function () {
+					$results.html('<div class="live-search-loading"><i class="fa-solid fa-spinner fa-spin"></i> Searching&hellip;</div>').addClass('active');
+					$.ajax({
+						url: lawandbeyondAjax.ajaxUrl,
+						type: 'POST',
+						data: {
+							action: 'lawandbeyond_live_search',
+							nonce: lawandbeyondAjax.nonce,
+							query: q
+						},
+						success: function (response) {
+							if (response.success && response.data.html) {
+								$results.html(response.data.html).addClass('active');
+							} else {
+								$results.html('').removeClass('active');
+							}
+						},
+						error: function () {
+							$results.html('').removeClass('active');
+						}
+					});
+				}, 300);
+			});
+
+			// Close on click outside
+			$(document).on('click', function (e) {
+				if (!$(e.target).closest($form).length) {
+					$results.html('').removeClass('active');
+				}
+			});
+
+			$field.on('keydown', function (e) {
+				if (e.key === 'Escape') {
+					$results.html('').removeClass('active');
+				}
+			});
+		}
+	});
+
+	/* ========================================
 	   Mobile Bottom Navigation
 	   ======================================== */
 	// Mobile bottom menu button opens the side drawer

@@ -10,10 +10,11 @@
  */
 function lawandbeyond_social_links() {
 	$socials = array(
-		'youtube'  => array( 'icon' => 'fa-youtube',  'label' => 'YouTube' ),
-		'twitter'  => array( 'icon' => 'fa-x-twitter', 'label' => 'Twitter' ),
-		'linkedin' => array( 'icon' => 'fa-linkedin',  'label' => 'LinkedIn' ),
-		'facebook' => array( 'icon' => 'fa-facebook-f','label' => 'Facebook' ),
+		'youtube'   => array( 'icon' => 'fa-youtube',    'label' => 'YouTube' ),
+		'twitter'   => array( 'icon' => 'fa-x-twitter',  'label' => 'Twitter' ),
+		'linkedin'  => array( 'icon' => 'fa-linkedin',   'label' => 'LinkedIn' ),
+		'facebook'  => array( 'icon' => 'fa-facebook-f', 'label' => 'Facebook' ),
+		'instagram' => array( 'icon' => 'fa-instagram',  'label' => 'Instagram' ),
 	);
 
 	echo '<ul class="social-links">';
@@ -252,24 +253,40 @@ function lawandbeyond_sidebar_section( $cat_slug, $title, $count = 3 ) {
 }
 
 /**
- * Display "Discover more" trending topics bar in the header.
+ * Display "Discover more" trending topics bar from Primary Menu categories.
+ *
+ * Only shows category items the user added to their Primary Menu,
+ * so unselected categories never appear here.
  */
 function lawandbeyond_trending_topics() {
-	$categories = get_categories( array(
-		'orderby'    => 'count',
-		'order'      => 'DESC',
-		'number'     => 5,
-		'hide_empty' => true,
-	) );
+	$locations = get_nav_menu_locations();
 
-	if ( empty( $categories ) ) {
+	if ( empty( $locations['primary'] ) ) {
+		return;
+	}
+
+	$menu_items = wp_get_nav_menu_items( $locations['primary'] );
+
+	if ( empty( $menu_items ) ) {
+		return;
+	}
+
+	// Collect only category menu items (top-level + children).
+	$links = array();
+	foreach ( $menu_items as $item ) {
+		if ( 'taxonomy' === $item->type && 'category' === $item->object ) {
+			$links[] = $item;
+		}
+	}
+
+	if ( empty( $links ) ) {
 		return;
 	}
 	?>
 	<div class="trending-topics">
 		<span class="trending-label"><?php esc_html_e( 'Discover more', 'lawandbeyond' ); ?></span>
-		<?php foreach ( $categories as $cat ) : ?>
-			<a href="<?php echo esc_url( get_category_link( $cat->term_id ) ); ?>"><?php echo esc_html( $cat->name ); ?></a>
+		<?php foreach ( $links as $item ) : ?>
+			<a href="<?php echo esc_url( $item->url ); ?>"><?php echo esc_html( $item->title ); ?></a>
 		<?php endforeach; ?>
 	</div>
 	<?php

@@ -393,25 +393,57 @@ ul, ol {
 }
 .search-form {
 	display: flex;
+	position: relative;
 }
 .search-field {
 	flex: 1;
 	padding: 10px 12px;
 	border: 1px solid #ddd;
+	border-radius: 4px 0 0 4px;
 	font-size: 14px;
 	font-family: var(--lab-secondary-font);
+	outline: none;
+	transition: border-color 0.2s ease;
+}
+.search-field:focus {
+	border-color: var(--lab-primary-color);
 }
 .search-submit {
 	background: var(--lab-primary-color);
 	color: #fff;
 	border: none;
 	padding: 10px 18px;
+	border-radius: 0 4px 4px 0;
 	cursor: pointer;
 	font-family: var(--lab-secondary-font);
 	font-weight: 600;
+	transition: background 0.2s ease;
+	white-space: nowrap;
 }
 .search-submit:hover {
 	background: #c02020;
+}
+
+/* Sidebar search live results */
+.widget .search-form {
+	position: relative;
+}
+.widget .search-form .live-search-results {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-top: none;
+	z-index: 100;
+	max-height: 300px;
+	overflow-y: auto;
+	display: none;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.widget .search-form .live-search-results.active {
+	display: block;
 }
 
 /* Trending Topics bar (below nav) */
@@ -826,24 +858,37 @@ body.mobile-menu-open .mobile-menu-overlay {
 /* Author box */
 .author-box {
 	display: flex;
-	gap: 20px;
-	padding: 25px;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 30px 25px;
 	background: #f9f9f9;
-	border-radius: 8px;
+	border: 1px solid #eee;
+	border-radius: 12px;
 	margin: 30px 0;
+}
+.author-box .author-avatar {
+	margin-bottom: 15px;
 }
 .author-box .author-avatar img {
 	border-radius: 50%;
-	width: 80px;
-	height: 80px;
+	width: 90px;
+	height: 90px;
+	object-fit: cover;
+	border: 3px solid #e0e0e0;
 }
 .author-box .author-info h4 {
-	margin: 0 0 5px;
+	margin: 0 0 8px;
+	font-size: 18px;
+	font-weight: 700;
+	color: #111;
 }
 .author-box .author-info p {
 	font-size: 14px;
 	color: #666;
 	margin: 0;
+	line-height: 1.5;
+	max-width: 380px;
 }
 
 /* Post navigation */
@@ -1394,10 +1439,6 @@ body.mobile-menu-open .mobile-menu-overlay {
 	.entry-content {
 		font-size: 15px;
 	}
-	.author-box {
-		flex-direction: column;
-		text-align: center;
-	}
 	.footer-info {
 		flex-direction: column;
 		gap: 15px;
@@ -1410,8 +1451,33 @@ body.mobile-menu-open .mobile-menu-overlay {
 
 @media screen and (max-width: 480px) {
 	.top-bar-menu .container {
-		flex-direction: column;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 6px;
+	}
+	.top-bar-menu .left-menu {
 		gap: 5px;
+		font-size: 12px;
+	}
+	.top-bar-menu .right-menu {
+		gap: 6px;
+	}
+	.top-bar-menu .right-menu .social-links {
+		display: none;
+	}
+	.header-date {
+		font-size: 12px;
+	}
+	.header-clock {
+		font-size: 11px;
+		padding: 2px 6px;
+		min-width: 65px;
+	}
+	.topbar-subscribe-btn.lab-push-subscribe-btn {
+		font-size: 11px !important;
+		padding: 3px 10px !important;
 	}
 	.container {
 		padding: 0 10px;
@@ -1646,7 +1712,7 @@ body.mobile-menu-open .mobile-menu-overlay {
 	color: #fff !important;
 }
 .share-twitter {
-	background: #000;
+	background: #1da1f2;
 }
 .share-facebook {
 	background: #1877f2;
