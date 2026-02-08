@@ -273,3 +273,11 @@ require get_template_directory() . '/inc/default-setup.php';
  * Demo content importer (admin page).
  */
 require get_template_directory() . '/inc/demo-content.php';
+
+/**
+ * GitHub theme updater (auto-updates from GitHub releases).
+ */
+require get_template_directory() . '/inc/github-updater.php';
+if ( is_admin() ) {
+	new LawAndBeyond_GitHub_Updater();
+}
