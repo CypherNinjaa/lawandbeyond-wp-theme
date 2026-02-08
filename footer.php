@@ -37,6 +37,17 @@
 						<?php lawandbeyond_social_links(); ?>
 					<?php endif; ?>
 				</div>
+
+				<!-- Developer Credit -->
+				<div class="developer-credit">
+					<?php
+					printf(
+						/* translators: %s: developer link */
+						esc_html__( 'Designed & Developed by %s', 'lawandbeyond' ),
+						'<a href="https://github.com/CypherNinjaa" target="_blank" rel="noopener">CypherNinjaa</a>'
+					);
+					?>
+				</div>
 			</div>
 		</div>
 	</footer>

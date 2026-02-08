@@ -1329,6 +1329,25 @@ body.mobile-menu-open .mobile-menu-overlay {
 	color: var(--lab-primary-color);
 }
 
+/* Developer Credit */
+.developer-credit {
+	text-align: center;
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.5);
+	margin-top: 15px;
+	padding-top: 15px;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	font-family: var(--lab-secondary-font);
+}
+.developer-credit a {
+	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+.developer-credit a:hover {
+	color: var(--lab-primary-color);
+}
+
 /* ========================================
    Back to Top
    ======================================== */

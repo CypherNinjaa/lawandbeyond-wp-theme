@@ -2,6 +2,12 @@
 
 A professional Indian legal news theme featuring Supreme Court, High Court, and legal updates. Magazine-style layout with top stories grid, category sections, and right sidebar.
 
+## Developer
+
+**CypherNinjaa** (Vikash)  
+GitHub: [github.com/CypherNinjaa](https://github.com/CypherNinjaa)  
+Email: vikashkelly@gmail.com
+
 ## Features
 
 - **Magazine-style homepage** — Top Stories hero grid + 5 configurable category sections
@@ -39,6 +45,16 @@ This theme supports automatic updates from GitHub. When a new release is publish
 Or go to **Dashboard → Updates** to update along with plugins.
 
 ## Changelog
+
+### 1.2.0
+- Added developer credits (footer, style.css, README)
+
+### 1.1.0
+- Fixed author profile box layout
+- Fixed share button X/Twitter color
+- Added Instagram to social links & Customizer
+- Added realtime search to sidebar widgets
+- Fixed mobile topbar alignment
 
 ### 1.0.0
 - Initial release
